@@ -78,6 +78,7 @@ pm uninstall -k --user 0 com.tencent.soter.soterserver
 pm uninstall -k --user 0 com.wdstechnology.android.kryten
 pm uninstall -k --user 0 com.xiaomi.barrage
 pm uninstall -k --user 0 com.xiaomi.glgm
+pm uninstall -k --user 0 com.xiaomi.joyose
 pm uninstall -k --user 0 com.xiaomi.mipicks
 pm uninstall -k --user 0 com.xiaomi.mirror
 pm uninstall -k --user 0 com.xiaomi.mtb
