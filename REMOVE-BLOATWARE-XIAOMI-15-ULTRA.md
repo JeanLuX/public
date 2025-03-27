@@ -11,12 +11,11 @@ A useful article on XDA : https://www.xda-developers.com/install-adb-windows-mac
 
 ## 2. Connect Your Xiaomi 15 Ultra
 1. Connect your device via USB.
-2. Run `adb devices` in the terminal/command prompt to confirm the connection.
-3. On the Xiaomi 15 Ultra prompt screen, authorize the computer.
-4. Open the ADB Shell with `adb shell`.
+2. Run `adb devices` in the terminal/command prompt and the Xiaomi 15 Ultra prompt screen, authorize your computer.
+3. Open the ADB Shell with `adb shell`.
 
 ## 3. Safe Bloatware Removal Commands
-Execute these commands in the opened ADB Shell:
+Execute these commands **in the previously opened ADB Shell**:
 
 ```bash
 pm uninstall -k --user 0 com.alibaba.aliexpresshd
