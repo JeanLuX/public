@@ -58,6 +58,7 @@ pm uninstall -k --user 0 com.miui.bugreport
 pm uninstall -k --user 0 com.miui.cleaner
 pm uninstall -k --user 0 com.miui.daemon
 pm uninstall -k --user 0 com.miui.miservice
+pm uninstall -k --user 0 com.miui.mishare.connectivity
 pm uninstall -k --user 0 com.miui.miwallpaper.overlay
 pm uninstall -k --user 0 com.miui.miwallpaper.overlay.customize
 pm uninstall -k --user 0 com.miui.msa.global
