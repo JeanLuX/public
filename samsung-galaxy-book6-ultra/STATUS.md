@@ -28,16 +28,18 @@
   - Workaround: forcing HDR support by adding `KWIN_FORCE_ASSUME_HDR_SUPPORT=1` to `/etc/environment` makes the HDR option appear in KDE Display Configuration.
     - Note: The HDR content is displayed correctly, but SDR content is dimmer than expected, likely under Windows 11 with HDR enabled.
   - References: [KWin HDR EDID override](https://invent.kde.org/plasma/kwin/-/merge_requests/7337), [libdisplay-info nested CTA fix](https://chromium.googlesource.com/external/gitlab.freedesktop.org/emersion/libdisplay-info/+/73ec53d800275cce4b8a4af6af03ea2aac9912fd), [Samsung panel measurements](https://www.notebookcheck.com/Samsung-Galaxy-Book6-Ultra-im-Test-Beeindruckender-Multimedia-Laptop-mit-tollem-OLED-und-RTX-5070.1243968.0.html)
-- Ambient light sensor is not detected by KDE, so automatic brightness adjustment (as on Windows 11) is unavailable.
+- Ambient light sensor is not currently detected by KDE, so automatic brightness adjustment (as on Windows 11) is unavailable. It can work after installing the Samsung-specific Panther Lake ISH firmware through the procedure below. Without it, the generic `ish_ptl.bin` is rejected with `ISH loader: cmd 2 failed 10`, so no ISH HID/IIO sensor is enumerated.
+  - Extraction and installation procedure: [AMBIENT-LIGHT-SENSOR-FIRMWARE-EXTRACTION.md](./AMBIENT-LIGHT-SENSOR-FIRMWARE-EXTRACTION.md)
+  - The procedure covers Ubuntu, Fedora non-Atomic, and Fedora Atomic systems.
     ```
-    # kscreen-doctor --outputs
-    Output: 1 eDP-1 <uuid>
+    # kscreen-doctor --outputs # with ambient light sensor firmware installed
+    Output: 1 eDP-1 bc38b1e1-806f-4fed-9eb9-5dedf06de865
     enabled
     connected
     priority 1
     Panel
     replication source:0
-    Modes:  1:2880x1800@120.00*!  2:2880x1800@60.00  3:1600x1200@59.87  4:1600x1200@119.82  5:1280x1024@59.90  6:1280x1024@119.83  7:1024x768@59.92  8:1024x768@119.80  9:2560x1600@59.99  10:2560x1600@119.93  11:1920x1200@59.88  12:1920x1200@119.90  13:1280x800@59.81  14:1280x800@119.85  15:2880x1620@59.96  16:2880x1620@119.95  17:2560x1440@59.96  18:2560x1440@119.95  19:1920x1080@59.96  20:1920x1080@119.93  21:1600x900@59.95  22:1600x900@119.95  23:1368x768@59.88  24:1368x768@119.83  25:1280x720@59.85  26:1280x720@119.86
+    Modes:  1:2880x1800@120.00!  2:2880x1800@60.00*  3:1600x1200@59.87  4:1600x1200@119.82  5:1280x1024@59.90  6:1280x1024@119.83  7:1024x768@59.92  8:1024x768@119.80  9:2560x1600@59.99  10:2560x1600@119.93  11:1920x1200@59.88  12:1920x1200@119.90  13:1280x800@59.81  14:1280x800@119.85  15:2880x1620@59.96  16:2880x1620@119.95  17:2560x1440@59.96  18:2560x1440@119.95  19:1920x1080@59.96  20:1920x1080@119.93  21:1600x900@59.95  22:1600x900@119.95  23:1368x768@59.88  24:1368x768@119.83  25:1280x720@59.85  26:1280x720@119.86
     Custom modes: None
     Geometry: 0,0 1920x1200
     Scale: 1.5
@@ -45,16 +47,16 @@
     Overscan: 0
     Vrr: Never
     RgbRange: Automatic
-    HDR: incapable
-    Wide Color Gamut: incapable
+    HDR: disabled
+    Wide Color Gamut: disabled
     ICC profile: none
     Color profile source: sRGB
     Color power preference: prefer efficiency and performance
-    Brightness control: supported, set to 100% and dimming to 100%
+    Brightness control: supported, set to 13% and dimming to 100%
     Color resolution: automatic (10), range: [6; 12] bits per color
-    Allow EDR: never
+    Allow EDR: unsupported
     Sharpness control: supported, set to 0%
-    Automatic brightness: unsupported
+    Automatic brightness: supported, enabled
     Auto Rotate Policy: incapable
     Adaptive backlight modulation: unsupported
     ```

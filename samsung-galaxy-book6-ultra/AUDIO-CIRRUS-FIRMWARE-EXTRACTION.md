@@ -273,19 +273,19 @@ On **Silverblue, Kinoite, Aurora, and other Fedora Atomic distributions**, `/usr
 is immutable. **Do not use `rpm-ostree usroverlay` for a persistent
 installation.**
 
-**Store the files under `/var`, which persists across deployments:**
+**Store the files under `/etc`, which persists across deployments:**
 
 ```bash
-sudo install -d -m 0755 /var/lib/firmware/cirrus
-sudo cp -a "$OUT"/. /var/lib/firmware/cirrus/
-sudo restorecon -RF /var/lib/firmware/cirrus
+sudo install -d -m 0755 /etc/firmware/cirrus
+sudo cp -a "$OUT"/. /etc/firmware/cirrus/
+sudo restorecon -RF /etc/firmware/cirrus
 ```
 
 **Add the custom path to the kernel arguments:**
 
 ```bash
 sudo rpm-ostree kargs \
-  --append-if-missing='firmware_class.path=/var/lib/firmware'
+  --append-if-missing='firmware_class.path=/etc/firmware'
 ```
 
 This command prepares a new deployment. It is not necessary to run `dracut`
@@ -316,7 +316,7 @@ cat /sys/module/firmware_class/parameters/path
 **Expected result:**
 
 ```text
-/var/lib/firmware
+/etc/firmware
 ```
 
 On Ubuntu and non-Atomic Fedora, an empty value is normal because the files are
@@ -390,17 +390,17 @@ Wait for the computer to power off completely, then start it manually.
 Move the files out of the active path:
 
 ```bash
-sudo install -d -m 0755 /var/lib/firmware/cirrus.disabled
-sudo mv /var/lib/firmware/cirrus/cs35l57-b2-dsp1-misc-144dca0a-* \
-  /var/lib/firmware/cirrus.disabled/
+sudo install -d -m 0755 /etc/firmware/cirrus.disabled
+sudo mv /etc/firmware/cirrus/cs35l57-b2-dsp1-misc-144dca0a-* \
+  /etc/firmware/cirrus.disabled/
 ```
 
-**Remove the parameter only if `/var/lib/firmware` contains no other custom
+**Remove the parameter only if `/etc/firmware` contains no other custom
 firmware:**
 
 ```bash
 sudo rpm-ostree kargs \
-  --delete-if-present='firmware_class.path=/var/lib/firmware'
+  --delete-if-present='firmware_class.path=/etc/firmware'
 sudo systemctl poweroff
 ```
 
@@ -412,7 +412,8 @@ Wait for the computer to power off completely, then start it manually.
 
 Check the **`cs35l57-b2`** prefix, the **`144dca0a`** SSID, the SoundWire address,
 and the `cirrus` subdirectory. On Fedora Atomic, also check the effective value
-of `/sys/module/firmware_class/parameters/path`.
+of `/sys/module/firmware_class/parameters/path` and that the files are present
+under `/etc/firmware/cirrus`.
 
 ### The `.wmfw` Loads but the `.bin` Does Not
 
