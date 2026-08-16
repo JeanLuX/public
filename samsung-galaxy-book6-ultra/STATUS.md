@@ -113,7 +113,7 @@ Adaptive backlight modulation: unsupported
 
 ## Thermal Management
 
-- `quiet` platform profile is missing.
+- `quiet` and `max_fan` platform profiles are missing.
 - Available profiles through `/sys/firmware/acpi/platform_profile_choices`:
 
 ```text
@@ -121,9 +121,8 @@ Adaptive backlight modulation: unsupported
 low-power balanced performance
 ```
 
-- `low-power` corresponds to Silent, `balanced` to Optimized, and `performance` to High performance.
-- Fans activate rarely or very late outside `performance`, causing significant heat buildup during heavy workloads across the chassis.
-- Windows 11 activates fans more frequently under the same usage conditions.
+- `low-power` corresponds to Silent, `balanced` to Optimized, and `performance` to High performance. The `quiet` profile (Silent), which is available on Windows 11, is missing. The `max_fan` profile (Maximum fan speed) is also unavailable because firmware mode `0x17` is not mapped in `profile_performance_modes`.
+Also, A potentially dangerous bug prevents the fans from activating when the `balanced` profile is selected, especially when switching from `low-power` (precedence) or cold-start. This can cause overheating during intensive CPU/GPU use and make the entire chassis dangerously hot. This problem does not occur on Windows 11, where the fans activate more frequently under the same usage conditions. Switching to performance mode before returning to balanced mode reactivates the fans. This resembles [a bug already reported in the samsung-galaxybook-extras repository](https://github.com/joshuagrisham/samsung-galaxybook-extras/issues/95#issuecomment-5307708030).
 
 ## Power Management
 
